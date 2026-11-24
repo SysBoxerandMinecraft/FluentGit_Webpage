@@ -1,0 +1,208 @@
+/* ============ 手动补全 WinUI 3 深浅色主题变量 ============ */
+:root, html.theme-light {
+  --win-solid-background: #f3f3f3;
+  --win-layer-background: #ffffff;
+  --win-card-background: rgba(255, 255, 255, 0.7);
+  --win-card-background-hover: rgba(255, 255, 255, 0.95);
+  --win-text-primary: rgba(0, 0, 0, 0.895);
+  --win-text-secondary: rgba(0, 0, 0, 0.606);
+  --win-accent-default: #005fb8;
+  --win-control-stroke: rgba(0, 0, 0, 0.06);
+  --win-control-fill: rgba(255, 255, 255, 0.7);
+  --win-control-fill-hover: rgba(249, 249, 249, 1);
+  --win-subtle-fill-secondary: rgba(0, 0, 0, 0.0373);
+  --win-subtle-fill-tertiary: rgba(0, 0, 0, 0.0241);
+  --win-divider-stroke: rgba(0, 0, 0, 0.08);
+  --win-infobar-bg: rgba(0, 95, 184, 0.06);
+}
+
+html.theme-dark {
+  --win-solid-background: #202020;
+  --win-layer-background: #272727;
+  --win-card-background: rgba(255, 255, 255, 0.05);
+  --win-card-background-hover: rgba(255, 255, 255, 0.08);
+  --win-text-primary: rgba(255, 255, 255, 1);
+  --win-text-secondary: rgba(255, 255, 255, 0.606);
+  --win-accent-default: #60cdff;
+  --win-control-stroke: rgba(255, 255, 255, 0.07);
+  --win-control-fill: rgba(255, 255, 255, 0.06);
+  --win-control-fill-hover: rgba(255, 255, 255, 0.09);
+  --win-subtle-fill-secondary: rgba(255, 255, 255, 0.06);
+  --win-subtle-fill-tertiary: rgba(255, 255, 255, 0.04);
+  --win-divider-stroke: rgba(255, 255, 255, 0.08);
+  --win-infobar-bg: rgba(96, 205, 255, 0.08);
+}
+
+/* ============ 全局基础样式 ============ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 阻止页面整体出现滚动条 */
+  background: var(--win-solid-background);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+body {
+  font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Microsoft YaHei', sans-serif;
+  color: var(--win-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  height: 100vh;
+}
+
+.glyph {
+  font-family: 'Segoe Fluent Icons', 'Segoe MDL2 Assets', sans-serif;
+  line-height: 1;
+}
+
+.fg-card {
+  border-radius: 8px;
+  background: var(--win-card-background);
+  border: 1px solid var(--win-control-stroke);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background 0.15s ease;
+}
+
+.fg-page-title {
+  margin: 0;
+  font-family: 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--win-text-primary);
+}
+
+/* ============ 暴力清理所有原生滚动条按钮 ============ */
+::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* 仅美化内容区的垂直滚动条 */
+.content::-webkit-scrollbar { width: 12px; }
+.content::-webkit-scrollbar-thumb {
+  background: var(--win-subtle-fill-secondary);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* ============ WinUI 3 超链接按钮 ============ */
+.fg-hyperlink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--win-accent-default) !important;
+  background: transparent !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent !important;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  font-family: inherit;
+  outline: none;
+}
+
+.fg-hyperlink:hover {
+  background: var(--win-subtle-fill-secondary) !important;
+  text-decoration: underline;
+}
+
+.fg-hyperlink:active {
+  background: var(--win-subtle-fill-tertiary) !important;
+  text-decoration: underline;
+}
+
+/* ============ InfoBar 自绘 ============ */
+.fg-infobar {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding: 16px 16px 16px 20px;
+  border-radius: 4px;
+  background: var(--win-infobar-bg);
+  border: 1px solid var(--win-control-stroke);
+  overflow: hidden;
+}
+
+.fg-infobar::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--win-accent-default);
+}
+
+.fg-infobar-icon {
+  font-family: 'Segoe Fluent Icons', 'Segoe MDL2 Assets', sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--win-accent-default);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.fg-infobar-body { display: flex; flex-direction: column; gap: 4px; }
+.fg-infobar-title { font-size: 14px; font-weight: 600; }
+.fg-infobar-msg { font-size: 13px; color: var(--win-text-secondary); line-height: 1.5; }
+
+/* ============ Expander 自绘 ============ */
+.fg-expander {
+  overflow: hidden;
+}
+
+.fg-expander summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none !important;
+  list-style-type: none !important;
+  user-select: none;
+}
+
+.fg-expander summary::-webkit-details-marker,
+.fg-expander summary::marker {
+  display: none !important;
+}
+
+.fg-expander summary::before,
+.fg-expander summary::after {
+  display: none !important;
+  content: none !important;
+}
+
+.fg-expander summary:hover { background: var(--win-subtle-fill-tertiary); }
+
+.fg-expander-chevron {
+  font-family: 'Segoe Fluent Icons', 'Segoe MDL2 Assets', sans-serif;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.fg-expander[open] .fg-expander-chevron {
+  transform: rotate(90deg);
+}
+
+.fg-expander-content {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeIn 0.2s ease;
+}
